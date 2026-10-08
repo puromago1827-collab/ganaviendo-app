@@ -404,9 +404,35 @@ const app = {
             this.dailyCount++;
             this.updateBalanceUI();
             this.showToast(`¡Has ganado ${this.currentVideo.points} puntos!`);
-            this.navigate('videos');
+            
+            // --- LÓGICA DE SALTO AUTOMÁTICO AL SIGUIENTE VIDEO ---
+            
+            // 1. Validar límite diario primero
+            if (this.dailyCount >= 20) {
+                this.showToast('¡Has alcanzado el límite de 20 videos diarios!', 'success');
+                this.navigate('dashboard');
+                return;
+            }
+
+            // 2. Buscar si hay un video siguiente en la lista
+            const currentIndex = this.videos.findIndex(v => v.id === this.currentVideo.id);
+            if (currentIndex !== -1 && currentIndex + 1 < this.videos.length) {
+                const nextVid = this.videos[currentIndex + 1];
+                
+                // Esperamos 1.5 segundos para que el usuario pueda ver el mensaje de que ganó puntos
+                setTimeout(() => {
+                    this.showToast('⏭️ Reproduciendo el siguiente video...');
+                    this.playVideo(nextVid.id, nextVid.youtubeId, nextVid.title.replace(/'/g, "\\'"), nextVid.pointsReward);
+                }, 1500);
+            } else {
+                // No hay más videos en la lista
+                this.showToast('¡Has visto todos los videos disponibles!');
+                this.navigate('videos');
+            }
+
         } catch (err) {
             this.showToast(err.message, 'error');
+            this.navigate('videos');
         }
     },
 
