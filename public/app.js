@@ -12,6 +12,15 @@ const app = {
 
     // ─── Inicialización ───
     init() {
+        // Revisar si alguien entró por un enlace de referido (?ref=CODIGO)
+        const urlParams = new URLSearchParams(window.location.search);
+        const refCode = urlParams.get('ref');
+        if (refCode) {
+            document.getElementById('regRef').value = refCode;
+            // Forzar que se abra la ventana de registro automáticamente
+            window.location.hash = 'register';
+        }
+
         this.token = localStorage.getItem('gv_token');
         const savedUser = localStorage.getItem('gv_user');
 
@@ -23,7 +32,7 @@ const app = {
             });
         } else {
             this.showPublicUI();
-            this.navigate('landing');
+            this.handleRoute();
         }
 
         this.setupEventListeners();
@@ -515,17 +524,20 @@ const app = {
 
     copyRefCode() {
         const code = this.user.referralCode || '';
-        navigator.clipboard.writeText(code).then(() => {
-            this.showToast('¡Código copiado al portapapeles!');
+        // Crear un enlace mágico que ya incluye el código
+        const link = window.location.origin + '/?ref=' + code;
+        
+        navigator.clipboard.writeText(link).then(() => {
+            this.showToast('¡Enlace de referido copiado al portapapeles!');
         }).catch(() => {
             // Fallback
             const input = document.createElement('input');
-            input.value = code;
+            input.value = link;
             document.body.appendChild(input);
             input.select();
             document.execCommand('copy');
             document.body.removeChild(input);
-            this.showToast('¡Código copiado!');
+            this.showToast('¡Enlace copiado!');
         });
     },
 
