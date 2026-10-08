@@ -1,0 +1,59 @@
+{
+  "users": [
+    {
+      "id": "admin-1",
+      "name": "Administrador",
+      "email": "admin@ganaviendo.com",
+      "password": "admin123",
+      "role": "admin",
+      "points": 0,
+      "referralCode": "ADMIN50",
+      "referredBy": null,
+      "createdAt": "2023-10-08T00:00:00.000Z"
+    }
+  ],
+  "videos": [
+    {
+      "id": "v1",
+      "youtubeId": "dQw4w9WgXcQ",
+      "title": "Rick Astley - Never Gonna Give You Up",
+      "category": "musica",
+      "pointsReward": 10,
+      "active": true
+    },
+    {
+      "id": "v2",
+      "youtubeId": "jNQXAC9IVRw",
+      "title": "Me at the zoo",
+      "category": "entretenimiento",
+      "pointsReward": 10,
+      "active": true
+    },
+    {
+      "id": "v3",
+      "youtubeId": "kJQP7kiw5Fk",
+      "title": "Luis Fonsi - Despacito",
+      "category": "musica",
+      "pointsReward": 10,
+      "active": true
+    },
+    {
+      "id": "v4",
+      "youtubeId": "tPEE9ZwTmy0",
+      "title": "Shortest Video on Youtube",
+      "category": "entretenimiento",
+      "pointsReward": 10,
+      "active": true
+    },
+    {
+      "id": "v5",
+      "youtubeId": "pQN-pnXPaVg",
+      "title": "Aprende a programar en 10 minutos",
+      "category": "educacion",
+      "pointsReward": 10,
+      "active": true
+    }
+  ],
+  "withdrawals": [],
+  "history": []
+}
