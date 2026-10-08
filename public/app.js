@@ -368,13 +368,16 @@ const app = {
         const timerEl = document.getElementById('rewardedAdTimer');
         timerEl.classList.remove('complete');
         
+        // Restaurar la estructura del contador por si se borró en el video anterior
+        timerEl.innerHTML = 'Espera <span id="adTimeLeft">5</span> segundos...';
+        
         // Countdown de 5 segundos (el usuario debe ver el anuncio)
         let adTime = 5;
-        document.getElementById('adTimeLeft').textContent = adTime;
         
         const adInterval = setInterval(() => {
             adTime--;
-            document.getElementById('adTimeLeft').textContent = adTime;
+            const spanLeft = document.getElementById('adTimeLeft');
+            if(spanLeft) spanLeft.textContent = adTime;
             
             if (adTime <= 0) {
                 clearInterval(adInterval);
@@ -603,4 +606,23 @@ function onYouTubeIframeAPIReady() {
 
 document.addEventListener('DOMContentLoaded', () => {
     app.init();
+});
+
+// Utilidad automática: Extraer ID de YouTube al pegar enlaces
+document.getElementById('adminVidId').addEventListener('input', function(e) {
+    let val = e.target.value.trim();
+    let id = "";
+    
+    if (val.includes("youtu.be/")) {
+        id = val.split("youtu.be/")[1].substring(0, 11);
+    } else if (val.includes("watch?v=")) {
+        id = val.split("watch?v=")[1].substring(0, 11);
+    } else if (val.includes("shorts/")) {
+        id = val.split("shorts/")[1].substring(0, 11);
+    }
+    
+    // Si encontró un ID, reemplazar el texto largo por solo el ID
+    if (id && id.length === 11) {
+        e.target.value = id;
+    }
 });
