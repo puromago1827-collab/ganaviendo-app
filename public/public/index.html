@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="GanaViendo - Gana dinero real viendo videos desde tu celular o computadora. ¡Retira tus ganancias por transferencia bancaria!">
+    <title>GanaViendo - ¡Gana dinero viendo videos!</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎬</text></svg>">
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Google AdSense: Reemplaza TU-ID-ADSENSE con tu ID real después de la aprobación -->
+    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-TU-ID-ADSENSE" crossorigin="anonymous"></script> -->
+</head>
+<body>
+
+    <!-- Header for authenticated users -->
+    <header class="app-header" id="appHeader" style="display: none;">
+        <h1>GanaViendo</h1>
+        <div class="user-balance-badge">
+            <span id="headerPoints">0</span> pts / $<span id="headerUsd">0.00</span>
+        </div>
+    </header>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- VIEWS -->
+
+    <!-- Landing Page -->
+    <section id="view-landing" class="view active">
+        <div class="landing-hero">
+            <h1>GanaViendo</h1>
+            <p style="font-size: 1.2rem; margin-bottom: 30px;">¡Gana dinero viendo videos desde tu celular o computadora!</p>
+            
+            <div class="card" style="margin-bottom: 30px; text-align: left;">
+                <h3>✨ Características</h3>
+                <ul style="margin-top: 15px; padding-left: 20px;">
+                    <li>Gana 10 puntos por cada video que veas</li>
+                    <li>Retira tus ganancias a partir de $15 USD (1500 puntos)</li>
+                    <li>Invita a tus amigos y gana más</li>
+                    <li>100% gratis y seguro</li>
+                </ul>
+            </div>
+
+            <button class="btn" onclick="app.navigate('login')">Iniciar Sesión</button>
+            <br><br>
+            <button class="btn btn-outline" onclick="app.navigate('register')">Registrarse</button>
+
+            <div style="margin-top: 40px; font-size: 0.8rem; color: var(--text-muted);">
+                <a href="#privacy" onclick="app.navigate('privacy'); return false;" style="color: var(--primary);">Política de Privacidad</a> |
+                <a href="#terms" onclick="app.navigate('terms'); return false;" style="color: var(--primary);">Términos y Condiciones</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Privacy Policy -->
+    <section id="view-privacy" class="view">
+        <div class="card" style="max-width: 700px; margin: 20px auto;">
+            <button class="btn btn-outline" style="width: auto; margin-bottom: 15px; padding: 8px 15px;" onclick="app.navigate('landing')">⬅ Volver</button>
+            <h2>Política de Privacidad</h2>
+            <p style="margin-top: 15px; line-height: 1.8;">
+                <strong>Última actualización:</strong> Octubre 2026<br><br>
+                En <strong>GanaViendo</strong>, nos comprometemos a proteger tu privacidad. Esta política describe cómo recopilamos, usamos y protegemos tu información personal.<br><br>
+                <strong>Información que recopilamos:</strong><br>
+                • Nombre y correo electrónico al registrarte<br>
+                • Datos bancarios cuando solicitas un retiro<br>
+                • Historial de videos vistos y puntos ganados<br>
+                • Datos de uso y navegación<br><br>
+                <strong>Uso de la información:</strong><br>
+                • Gestionar tu cuenta y procesar retiros<br>
+                • Mejorar nuestro servicio<br>
+                • Mostrar anuncios personalizados a través de Google AdSense y otras redes publicitarias<br><br>
+                <strong>Cookies y publicidad:</strong><br>
+                Utilizamos cookies de terceros (Google, etc.) para mostrar anuncios relevantes. Puedes desactivar las cookies personalizadas en la configuración de tu navegador.<br><br>
+                <strong>Contacto:</strong> contacto@ganaviendo.com
+            </p>
+        </div>
+    </section>
+
+    <!-- Terms -->
+    <section id="view-terms" class="view">
+        <div class="card" style="max-width: 700px; margin: 20px auto;">
+            <button class="btn btn-outline" style="width: auto; margin-bottom: 15px; padding: 8px 15px;" onclick="app.navigate('landing')">⬅ Volver</button>
+            <h2>Términos y Condiciones</h2>
+            <p style="margin-top: 15px; line-height: 1.8;">
+                <strong>Última actualización:</strong> Octubre 2026<br><br>
+                Al usar <strong>GanaViendo</strong>, aceptas los siguientes términos:<br><br>
+                <strong>1. Uso del servicio:</strong> GanaViendo permite ganar puntos viendo videos. Los puntos pueden canjearse por dinero real cuando alcances el mínimo de retiro ($15 USD).<br><br>
+                <strong>2. Requisitos:</strong> Debes tener al menos 18 años. Una cuenta por persona.<br><br>
+                <strong>3. Anti-fraude:</strong> Está prohibido usar bots, múltiples cuentas, o cualquier método automatizado. Las cuentas fraudulentas serán suspendidas sin reembolso.<br><br>
+                <strong>4. Retiros:</strong> Los retiros se procesan en un plazo de 3-7 días hábiles. Nos reservamos el derecho de verificar tu identidad antes de procesar un retiro.<br><br>
+                <strong>5. Anuncios:</strong> Nuestro servicio se financia con publicidad. Al usar GanaViendo, aceptas la visualización de anuncios.<br><br>
+                <strong>6. Modificaciones:</strong> Nos reservamos el derecho de modificar estos términos, la cantidad de puntos por video, y las tarifas de conversión en cualquier momento.<br><br>
+                <strong>Contacto:</strong> contacto@ganaviendo.com
+            </p>
+        </div>
+    </section>
+
+    <!-- Login -->
+    <section id="view-login" class="view">
+        <div class="card" style="max-width: 400px; margin: 40px auto;">
+            <h2 class="text-center" style="margin-bottom: 20px;">Iniciar Sesión</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>Correo Electrónico</label>
+                    <input type="email" class="form-control" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Contraseña</label>
+                    <input type="password" class="form-control" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn">Entrar</button>
+            </form>
+            <p class="text-center" style="margin-top: 20px;">
+                ¿No tienes cuenta? <a href="#register" onclick="app.navigate('register'); return false;">Regístrate</a>
+            </p>
+        </div>
+    </section>
+
+    <!-- Register -->
+    <section id="view-register" class="view">
+        <div class="card" style="max-width: 400px; margin: 40px auto;">
+            <h2 class="text-center" style="margin-bottom: 20px;">Crear Cuenta</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <input type="text" class="form-control" id="regName" required>
+                </div>
+                <div class="form-group">
+                    <label>Correo Electrónico</label>
+                    <input type="email" class="form-control" id="regEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Contraseña</label>
+                    <input type="password" class="form-control" id="regPassword" required>
+                </div>
+                <div class="form-group">
+                    <label>Código de Referido (Opcional)</label>
+                    <input type="text" class="form-control" id="regRef">
+                </div>
+                <button type="submit" class="btn">Registrarse</button>
+            </form>
+            <p class="text-center" style="margin-top: 20px;">
+                ¿Ya tienes cuenta? <a href="#login" onclick="app.navigate('login'); return false;">Inicia sesión</a>
+            </p>
+        </div>
+    </section>
+
+    <!-- Dashboard -->
+    <section id="view-dashboard" class="view">
+        <div class="card text-center" style="background: var(--primary); color: white;">
+            <h3 style="color: white; margin-bottom: 10px;">Tu Balance</h3>
+            <h1 style="color: white; font-size: 3rem; margin: 0;">$<span id="dashUsd">0.00</span></h1>
+            <p style="font-size: 1.2rem; opacity: 0.9;"><span id="dashPoints">0</span> Puntos</p>
+        </div>
+
+        <div class="card">
+            <h3>Progreso Diario</h3>
+            <p style="margin-top: 10px;">Videos vistos hoy: <span id="dailyCount">0</span> / 20</p>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="dailyProgress"></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Atajos</h3>
+            <div style="display: flex; gap: 10px; margin-top: 15px;">
+                <button class="btn btn-secondary" onclick="app.navigate('videos')">👀 Ver Videos</button>
+                <button class="btn btn-outline" onclick="app.navigate('wallet')">💰 Retirar</button>
+            </div>
+        </div>
+        
+        <div id="adminPanelLink" style="display:none; text-align:center; margin-top: 20px;">
+            <button class="btn" style="background: #ff3366;" onclick="app.navigate('admin')">👑 Panel de Administrador</button>
+        </div>
+
+        <!-- Ad Banner Slot -->
+        <div class="ad-container" id="dashboardAd" style="min-height: 250px; display: flex; justify-content: center; margin-top: 20px;">
+            <script>
+              atOptions = {
+                'key' : '409c476075b6965ee90ad21c12058c50',
+                'format' : 'iframe',
+                'height' : 250,
+                'width' : 300,
+                'params' : {}
+              };
+            </script>
+            <script src="https://bicea.org/22/409c476075b6965ee90ad21c12058c50"></script>
+        </div>
+    </section>
+
+    <!-- Videos -->
+    <section id="view-videos" class="view">
+        <h2 style="margin-bottom: 20px;">Videos Disponibles</h2>
+        
+        <!-- Ad Banner top -->
+        <div class="ad-container" id="videosTopAd" style="min-height: 250px; display: flex; justify-content: center; margin-bottom: 20px;">
+            <script>
+              atOptions = {
+                'key' : '409c476075b6965ee90ad21c12058c50',
+                'format' : 'iframe',
+                'height' : 250,
+                'width' : 300,
+                'params' : {}
+              };
+            </script>
+            <script src="https://bicea.org/22/409c476075b6965ee90ad21c12058c50"></script>
+        </div>
+
+        <div id="videosGrid" class="video-grid">
+            <!-- Videos injected here -->
+        </div>
+    </section>
+
+    <!-- Video Player -->
+    <section id="view-player" class="view">
+        <button class="btn btn-outline" style="width: auto; margin-bottom: 15px; padding: 8px 15px;" onclick="app.navigate('videos')">⬅ Volver</button>
+        
+        <div class="card">
+            <h3 id="playerTitle" style="margin-bottom: 15px;">Cargando video...</h3>
+            
+            <div class="player-container">
+                <div id="ytplayer"></div>
+            </div>
+
+            <div id="timerBox" class="timer-box">
+                Tiempo restante: <span id="timeLeft">30</span>s
+            </div>
+
+            <!-- Rewarded Ad: Se muestra ANTES de dar los puntos -->
+            <div id="rewardedAdContainer" class="rewarded-ad-overlay" style="display: none;">
+                <div class="rewarded-ad-box">
+                    <h3>📺 Mira este anuncio para reclamar tus puntos</h3>
+                    <div id="rewardedAdSlot" class="rewarded-ad-slot" style="display: flex; justify-content: center;">
+                        <script>
+                          atOptions = {
+                            'key' : '409c476075b6965ee90ad21c12058c50',
+                            'format' : 'iframe',
+                            'height' : 250,
+                            'width' : 300,
+                            'params' : {}
+                          };
+                        </script>
+                        <script src="https://bicea.org/22/409c476075b6965ee90ad21c12058c50"></script>
+                    </div>
+                    <div id="rewardedAdTimer" class="rewarded-timer">
+                        Espera <span id="adTimeLeft">5</span> segundos...
+                    </div>
+                    <button id="closeAdBtn" class="btn btn-secondary" style="display: none;" onclick="app.onRewardedAdComplete()">✅ Cerrar y reclamar puntos</button>
+                </div>
+            </div>
+
+            <button id="claimBtn" class="btn btn-secondary" style="display: none; font-size: 1.1rem; padding: 15px;" onclick="app.showRewardedAd()">🎁 Reclamar Puntos</button>
+        </div>
+
+        <!-- Ad Banner below player -->
+        <div class="ad-container" id="playerAd" style="min-height: 250px; display: flex; justify-content: center; margin-top: 20px;">
+            <script>
+              atOptions = {
+                'key' : '409c476075b6965ee90ad21c12058c50',
+                'format' : 'iframe',
+                'height' : 250,
+                'width' : 300,
+                'params' : {}
+              };
+            </script>
+            <script src="https://bicea.org/22/409c476075b6965ee90ad21c12058c50"></script>
+        </div>
+    </section>
+
+    <!-- Wallet -->
+    <section id="view-wallet" class="view">
+        <div class="card text-center" style="background: var(--secondary); color: white;">
+            <h3 style="color: white; margin-bottom: 10px;">Balance Disponible</h3>
+            <h1 style="color: white; font-size: 3rem; margin: 0;">$<span id="walletUsd">0.00</span></h1>
+            <p style="font-size: 1.2rem; opacity: 0.9;">Mínimo de retiro: $15.00 (1500 pts)</p>
+        </div>
+
+        <div class="card">
+            <h3 style="margin-bottom: 15px;">Solicitar Retiro</h3>
+            <form id="withdrawForm">
+                <div class="form-group">
+                    <label>Método de Pago</label>
+                    <select class="form-control" id="withdrawMethod" required>
+                        <option value="" disabled selected>Selecciona una opción...</option>
+                        <option value="PayPal">PayPal</option>
+                        <option value="Binance">Binance (Binance Pay ID / Correo)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Cuenta (Correo de PayPal o ID de Binance)</label>
+                    <input type="text" class="form-control" id="withdrawAccount" placeholder="ej. usuario@correo.com o ID 12345678" required>
+                </div>
+                <div class="form-group">
+                    <label>Monto a Retirar (USD)</label>
+                    <input type="number" class="form-control" id="withdrawAmount" min="15" step="1" required>
+                </div>
+                <button type="submit" class="btn">Solicitar Retiro</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h3>Historial de Retiros</h3>
+            <div id="withdrawHistory" style="margin-top: 15px; font-size: 0.9rem;">
+                <p class="text-muted">No tienes retiros previos.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Referrals -->
+    <section id="view-referrals" class="view">
+        <div class="card text-center">
+            <h3>Tu Código de Referido</h3>
+            <p style="margin-top: 10px; color: var(--text-muted);">Comparte este código y gana el 10% de lo que generen tus referidos.</p>
+            
+            <div style="background: var(--light); padding: 15px; border-radius: 8px; margin: 20px 0; font-size: 1.5rem; font-weight: bold; letter-spacing: 2px;">
+                <span id="refCode">CARGANDO...</span>
+            </div>
+            
+            <button class="btn" onclick="app.copyRefCode()">📋 Copiar Código</button>
+        </div>
+
+        <div class="card">
+            <h3>Tus Referidos (<span id="refCount">0</span>)</h3>
+            <div id="refList" style="margin-top: 15px;">
+                <p class="text-muted">Aún no tienes referidos.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Admin -->
+    <section id="view-admin" class="view">
+        <div class="card" style="background: var(--dark); color: white;">
+            <h2 style="color: white;">Panel de Control</h2>
+            <div style="display: flex; gap: 20px; margin-top: 15px;">
+                <div>
+                    <p style="opacity: 0.7;">Usuarios</p>
+                    <h3>150</h3>
+                </div>
+                <div>
+                    <p style="opacity: 0.7;">Pts Dados</p>
+                    <h3>25,000</h3>
+                </div>
+                <div>
+                    <p style="opacity: 0.7;">Retiros P.</p>
+                    <h3>3</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Agregar Video</h3>
+            <form id="addVideoForm" style="margin-top: 15px;">
+                <div class="form-group">
+                    <label>Título del Video</label>
+                    <input type="text" class="form-control" id="adminVidTitle" required>
+                </div>
+                <div class="form-group">
+                    <label>ID de YouTube (ej. dQw4w9WgXcQ)</label>
+                    <input type="text" class="form-control" id="adminVidId" required>
+                </div>
+                <button type="submit" class="btn">Agregar Video</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h3>Gestión de Videos</h3>
+            <div id="adminVideosList" style="margin-top: 15px;">
+                <!-- list -->
+            </div>
+        </div>
+        
+        <div class="card">
+            <h3>Solicitudes de Retiro Pendientes</h3>
+            <div id="adminWithdrawals" style="margin-top: 15px;">
+                <!-- list -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav" id="bottomNav" style="display: none;">
+        <a href="#dashboard" class="nav-item" data-target="dashboard" onclick="app.navigate('dashboard')">
+            <span>🏠</span>
+            Inicio
+        </a>
+        <a href="#videos" class="nav-item" data-target="videos" onclick="app.navigate('videos')">
+            <span>📺</span>
+            Videos
+        </a>
+        <a href="#wallet" class="nav-item" data-target="wallet" onclick="app.navigate('wallet')">
+            <span>💰</span>
+            Billetera
+        </a>
+        <a href="#referrals" class="nav-item" data-target="referrals" onclick="app.navigate('referrals')">
+            <span>👥</span>
+            Referidos
+        </a>
+        <a href="#profile" class="nav-item" onclick="app.logout()">
+            <span>🚪</span>
+            Salir
+        </a>
+    </nav>
+
+    <!-- YouTube IFrame API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script src="app.js"></script>
+</body>
+</html>
