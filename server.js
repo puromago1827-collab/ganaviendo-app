@@ -17,12 +17,12 @@ app.use(express.static('public'));
 
 // Configuración y Reglas
 const POINTS_PER_VIDEO = 10;
-const MIN_WITHDRAWAL_POINTS = 1500;
-const POINTS_TO_USD_RATE = 100; // 100 puntos = $1
-const REFERRAL_BONUS_INVITER = 50;
-const REFERRAL_BONUS_INVITEE = 25;
+const MIN_WITHDRAWAL_POINTS = 50000; // 50,000 puntos = $5
+const POINTS_TO_USD_RATE = 10000; // 10,000 puntos = $1
+const REFERRAL_BONUS_INVITER = 500;
+const REFERRAL_BONUS_INVITEE = 250;
 const COOLDOWN_SECONDS = 30;
-const DAILY_LIMIT_VIDEOS = 50;
+const DAILY_LIMIT_VIDEOS = 100; // Subir el límite a 100 diarios
 
 // Utilidades DB
 function readDb() {

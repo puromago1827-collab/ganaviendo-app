@@ -236,7 +236,7 @@ const app = {
     updateBalanceUI() {
         if (!this.user) return;
         const points = this.user.points || 0;
-        const usd = (points / 100).toFixed(2);
+        const usd = (points / 10000).toFixed(2);
 
         ['headerPoints', 'dashPoints'].forEach(id => {
             const el = document.getElementById(id);
@@ -252,7 +252,7 @@ const app = {
     updateDashboard() {
         this.refreshProfile();
         document.getElementById('dailyCount').textContent = this.dailyCount;
-        document.getElementById('dailyProgress').style.width = `${(this.dailyCount / 20) * 100}%`;
+        document.getElementById('dailyProgress').style.width = `${(this.dailyCount / 100) * 100}%`;
 
         const adminLink = document.getElementById('adminPanelLink');
         if (this.user && this.user.role === 'admin') {
@@ -266,8 +266,8 @@ const app = {
     async loadVideos() {
         const grid = document.getElementById('videosGrid');
 
-        if (this.dailyCount >= 20) {
-            grid.innerHTML = '<div class="card"><p class="text-center text-muted">Has alcanzado el límite diario de 20 videos. ¡Vuelve mañana!</p></div>';
+        if (this.dailyCount >= 100) {
+            grid.innerHTML = '<div class="card"><p class="text-center text-muted">Has alcanzado el límite diario de 100 videos. ¡Vuelve mañana!</p></div>';
             return;
         }
 
@@ -298,7 +298,7 @@ const app = {
 
     // ─── Reproductor de Video ───
     playVideo(videoId, youtubeId, title, points) {
-        if (this.dailyCount >= 20) {
+        if (this.dailyCount >= 100) {
             this.showToast('Límite diario alcanzado.', 'error');
             return;
         }
@@ -417,8 +417,8 @@ const app = {
             // --- LÓGICA DE SALTO AUTOMÁTICO AL SIGUIENTE VIDEO ---
             
             // 1. Validar límite diario primero
-            if (this.dailyCount >= 20) {
-                this.showToast('¡Has alcanzado el límite de 20 videos diarios!', 'success');
+            if (this.dailyCount >= 100) {
+                this.showToast('¡Has alcanzado el límite de 100 videos diarios!', 'success');
                 this.navigate('dashboard');
                 return;
             }
@@ -488,11 +488,11 @@ const app = {
 
     async requestWithdrawal(method, account, amount) {
         amount = parseFloat(amount);
-        if (amount < 15) {
-            this.showToast('El monto mínimo es de $15 USD', 'error');
+        if (amount < 5) {
+            this.showToast('El monto mínimo es de $5 USD', 'error');
             return;
         }
-        const pointsCost = amount * 100;
+        const pointsCost = amount * 10000;
         if (this.user.points < pointsCost) {
             this.showToast('No tienes suficientes puntos', 'error');
             return;
